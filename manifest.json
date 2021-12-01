@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+
+  "name": "Joomla/WP updates",
+  "version": "0.0.6",
+  "description": "Generate a list of available extension updates for report",
+  "icons": { "16": "icon16.png", "48": "icon48.png" },
+
+  "content_scripts": [
+    {
+      "js": ["jQuery.js", "content.js"],
+      "matches": ["*://*/administrator*", "*://*/wp-admin*"],
+      "run_at": "document_end"
+    }
+  ]
+}
