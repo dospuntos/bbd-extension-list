@@ -32,6 +32,7 @@ example.com
 ## Version history
 
 **0.0.7** - Now works in some common sub-folder installations
+
 **0.0.6** - Initial release
 
 ## Contributing
