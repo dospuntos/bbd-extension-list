@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Joomla/WP updates",
   "version": "0.0.7",
   "description": "Generate a list of available extension updates for report",
@@ -22,5 +22,13 @@
       ],
       "run_at": "document_end"
     }
-  ]
+  ],
+  "host_permissions": [
+    "*://*/administrator*",
+    "*://*/wp-admin*",
+    "*://*/site/administrator*",
+    "*://*/cms/administrator*",
+    "*://*/website/administrator*"
+  ],
+  "permissions": []
 }
