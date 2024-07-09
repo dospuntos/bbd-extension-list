@@ -12,7 +12,12 @@ const outputToClipboard = (output) => {
 
 if (url.includes("administrator/index.php?option=com_installer&view=update")) {
   // Joomla Update list
-  output += getJoomlaUpgradeList();
+  // Simple check if Joomla version is 3 or 4 and use the appropriate selector
+  const isJoomla3 = document.querySelector("#j-main-container .table-striped")
+    ? true
+    : false;
+  console.log("Joomla 3? ", isJoomla3);
+  output += isJoomla3 ? getJoomla3UpgradeList() : getJoomla4UpgradeList();
   outputToClipboard(output);
 } else if (url.includes("wp-admin/update-core.php")) {
   // WP Update list
@@ -20,13 +25,24 @@ if (url.includes("administrator/index.php?option=com_installer&view=update")) {
   outputToClipboard(output);
 }
 
-function getJoomlaUpgradeList() {
+function getJoomla3UpgradeList() {
   let retval = "";
-  $(".table-striped tr").each(function () {
+  $("#j-main-container .table-striped tr").each(function () {
     const title = $(".editlinktip", this).text().trim();
     const version = $(".label-success", this).text().trim();
     if (title) retval += `\n* ${title}`;
     if (version && !hasNumber(title)) retval += ` ${version}`;
+  });
+
+  return retval || "\n* No updates";
+}
+
+function getJoomla4UpgradeList() {
+  let retval = "";
+  $("#j-main-container .table tr").each(function () {
+    const title = $(this).find("th span[tabindex='0']").text().trim();
+    const version = $(this).find("td span.badge.bg-success").text().trim();
+    if (title) retval += `\n* ${title} ${hasNumber(title) ? "" : version}`;
   });
 
   return retval || "\n* No updates";
